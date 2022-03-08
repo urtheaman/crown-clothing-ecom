@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Open Sans Condensed';
+    font-weight: bold;
+    src: url('./fonts/open-sans-condensed/OpenSans-CondBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans Condensed';
+    font-weight: light;
+    src: url('./fonts/open-sans-condensed/OpenSans-CondLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Open Sans Condensed';
+    font-weight: italic;
+    src: url('./fonts/open-sans-condensed/OpenSans-CondLightItalic.ttf') format('truetype');
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans Condensed';
+    font-size: 5rem;
+}
