@@ -1,7 +1,7 @@
 import "./App.scss";
 import Homepage from "./Pages/homepage/Homepage";
-import { Route, Routes, Link } from "react-router-dom";
-import Shop from "./Pages/shop/shop.comp";
+import { Route, Routes } from "react-router-dom";
+import Shop from "./Pages/shop/Shop";
 
 const App = () => {
   return (
