@@ -4,3 +4,7 @@ export const toggleHiddenState = () => ({
   type: cartActionTypes.TOGGLE_HIDDEN_STATE
 })
 
+export const addItem = item => ({
+    type: cartActionTypes.ADD_ITEM,
+    payload: item
+})
