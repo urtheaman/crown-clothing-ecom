@@ -3,11 +3,13 @@ import { Link, Outlet } from "react-router-dom";
 import "./Header.scss";
 import Logo from "../../assets/images/crown.svg";
 import { connect } from "react-redux";
-import CartDropdown from "../cart-dropdown/cart-dropdown.comp";
-import CartIcon from "../cart-icon/cart-icon.comp";
-import { toggleHiddenState } from "../../redux/cart/cart.action";
+import CartDropdown from "../cart/cart-dropdown/cart-dropdown.comp";
+import CartIcon from "../cart/cart-icon/cart-icon.comp";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../../redux/user/user.selector";
+import { selectToggleHidden } from "../../redux/cart/cart.selector";
 
-const Header = ({ currentUser, hidden, setHidden }) => {
+const Header = ({ currentUser, hidden }) => {
   return (
     <Fragment>
       <header className="header">
@@ -30,7 +32,7 @@ const Header = ({ currentUser, hidden, setHidden }) => {
               Sign in
             </Link>
           )}
-          <CartIcon onClick={setHidden} />
+          <CartIcon />
         </ul>
         {!hidden ? <CartDropdown /> : null}
       </header>
@@ -39,16 +41,13 @@ const Header = ({ currentUser, hidden, setHidden }) => {
   );
 };
 
-const mapStateToProps = ({ user: { user }, cart: { hidden } }) => ({
-  currentUser: user,
-  hidden: hidden,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectToggleHidden,
 });
 // this mapStateToPros is a function, btw we can set any name for this function but this is a convention when reading the state.
 // This function gets access to the rootReducer state aka the main state of our redux store.
 // and we pull out the values which we require.
 // this function reads the state and set it as a prop value in the component
 
-const mapDispatchToProps = (dispatchEvent) => ({
-  setHidden: () => dispatchEvent(toggleHiddenState()),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

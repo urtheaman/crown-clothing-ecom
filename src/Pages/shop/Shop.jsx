@@ -1,6 +1,6 @@
 import React from "react";
-import CollectionData from "../../collection.data.json";
-import CollectionPreview from "../../components/collection-preview/collection-preview.comp";
+import CollectionData from "./collection.data.json";
+import CollectionPreview from "./collection-preview/collection-preview.comp";
 import './Shop.scss'
 
 class Shop extends React.Component {

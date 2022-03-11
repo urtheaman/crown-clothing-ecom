@@ -1,15 +1,18 @@
 import React from "react";
-import CustomButton from "../../custom-button/custom-button.comp";
-import FormInput from "../../form-input/form-input.comp";
+
 import "./signin.styles.scss";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../firebase/init.firebase";
 import { connect } from "react-redux";
 import setUser from "../../../redux/user/user-action";
+import CustomButton from "../../../components/custom-elements/custom-button/custom-button.comp";
+import FormInput from "../../../components/custom-elements/form-input/form-input.comp";
+
 
 class SignIn extends React.Component {
-  constructor({ setCurrentUser }) {
-    super(setCurrentUser);
+  constructor(props) {
+    super(props);
+    const { setCurrentUser } = props;
     this.setCurrentUser = setCurrentUser;
 
     this.state = {
@@ -72,7 +75,11 @@ class SignIn extends React.Component {
             <CustomButton type="submit" onClick={this.signInHandler}>
               Sign In
             </CustomButton>
-            <CustomButton type='button' onClick={this.googleSignInHandler} className="google">
+            <CustomButton
+              type="button"
+              onClick={this.googleSignInHandler}
+              className="google"
+            >
               Google sign in
             </CustomButton>
           </div>

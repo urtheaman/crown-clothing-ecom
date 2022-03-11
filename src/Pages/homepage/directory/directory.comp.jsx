@@ -1,4 +1,4 @@
-import data from "../../directory.data.json";
+import data from "./directory.data.json";
 import MenuItem from "../menu-item/menu-item.comp";
 import './directory.styles.scss'
 

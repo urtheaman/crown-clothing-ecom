@@ -1,6 +1,6 @@
 import React from "react";
-import CustomButton from "../../custom-button/custom-button.comp";
-import FormInput from "../../form-input/form-input.comp";
+import CustomButton from "../../../components/custom-elements/custom-button/custom-button.comp";
+import FormInput from "../../../components/custom-elements/form-input/form-input.comp";
 import "./signup.styles.scss";
 
 class SignUp extends React.Component {

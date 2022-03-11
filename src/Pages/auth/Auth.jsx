@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import SignIn from "../../components/auth/signin/signin.comp";
-import SignUp from "../../components/auth/signup/signup.comp";
+import SignIn from "./signin/signin.comp";
+import SignUp from "./signup/signup.comp";
 import "./Auth.scss";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
