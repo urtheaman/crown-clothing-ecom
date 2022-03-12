@@ -18,7 +18,7 @@ const StripeButton = ({ total, dispatch, ...props }) => {
         {...props}
         stripeKey="pk_test_51KcT3XSAQjlF6UAqKfwSJykUdfTSRipr0VTAu1yiejmvi3TkdBEGiX3Qw4aQXKfeTBvGhuDGcD0vSJSYCzYtkfio00aSqKqp1H"
         name="Crown Clothing"
-        description="Clothes you need"
+        description="Clothes that you need"
         image={Logo}
         ComponentClass="div"
         panelLabel="Order Now"
