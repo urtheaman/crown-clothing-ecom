@@ -8,41 +8,35 @@ import {
 } from "../../redux/cart/cart.selector";
 import CheckoutItem from "./checkout-item/checkout-item.comp";
 import Logo from "../../assets/images/shopping-bag.svg";
-
-// const collectionDataMap = {
-//   0: "hats",
-//   1: "sneakers",
-//   2: "jackets",
-//   3: "womens",
-//   4: "mens",
-// };
+import StripeButton from "../../components/stripe/stripe.comp";
 
 const Checkout = ({ cartItems, totalAmount }) => {
 
     return (
-    <div className="checkout-page">
-      <div className="checkout-header">
-        <div className="header-block">Product</div>
-        <div className="header-block">Description</div>
-        <div className="header-block">Quantity</div>
-        <div className="header-block">Price</div>
-        <div className="header-block">Remove</div>
-      </div>
-      {cartItems.length ? (
-        cartItems.map((item) => {
-          return <CheckoutItem key={item.id} cartItem={item} />;
-        })
-      ) : (
-        <div className="empty-cart-message">
-          <span>Cart is empty</span>
-          <img src={Logo} alt="empty-cart" />
+      <div className="checkout-page">
+        <div className="checkout-header">
+          <div className="header-block">Product</div>
+          <div className="header-block">Description</div>
+          <div className="header-block">Quantity</div>
+          <div className="header-block">Price</div>
+          <div className="header-block">Remove</div>
         </div>
-      )}
-      {cartItems.length ? (
-        <div className="total">TOTAL : ${totalAmount}</div>
-      ) : null}
-    </div>
-  );
+        {cartItems.length ? (
+          cartItems.map((item) => {
+            return <CheckoutItem key={item.id} cartItem={item} />;
+          })
+        ) : (
+          <div className="empty-cart-message">
+            <span>Cart is empty</span>
+            <img src={Logo} alt="empty-cart" />
+          </div>
+        )}
+        {cartItems.length ? (
+          <div className="total">TOTAL : ${totalAmount}</div>
+        ) : null}
+          <StripeButton className='btn' total={totalAmount} />
+      </div>
+    );
 };
 
 const mapStateToProps = createStructuredSelector({

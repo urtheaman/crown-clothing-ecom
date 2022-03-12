@@ -1,15 +1,25 @@
 .collection-preview {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  font-family: "Open Sans Condensed";
+  // margin-bottom: 30px;
+
+  a {
+    width: min-content;
+  }
 
   .title {
     font-size: 2.5rem;
     margin-bottom: 25px;
+    display: inline-block;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .preview {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 5rem;
   }
 }

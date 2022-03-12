@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./Header.scss";
 import Logo from "../../assets/images/crown.svg";
 import { connect } from "react-redux";
@@ -10,12 +10,13 @@ import { selectCurrentUser } from "../../redux/user/user.selector";
 import { selectToggleHidden } from "../../redux/cart/cart.selector";
 
 const Header = ({ currentUser, hidden }) => {
+  const navigate = useNavigate()
   return (
     <Fragment>
       <header className="header">
-        <Link to="/" className="logo-container">
-          <img src={Logo} alt="logo" />
-        </Link>
+        <div className="logo-container">
+            <img src={Logo} alt="logo" onClick={() => navigate('/')} />
+        </div>
         <ul className="options">
           <Link to="/shop" className="option">
             Shop

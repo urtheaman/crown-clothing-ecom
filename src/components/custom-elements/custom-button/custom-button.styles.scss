@@ -1,4 +1,4 @@
-.custom-button {
+@mixin customButton {
   min-width: 165px;
   width: auto;
   height: 50px;
@@ -13,30 +13,39 @@
   font-weight: bold;
   border: none;
   cursor: pointer;
-
-  &.google {
-    color: #fff;
-    background-color: orange;
-    &:hover {
-      background-color: white;
-      color: orange;
-      border: 1px solid orange;
-    }
-  }
-
   &:hover {
     background-color: white;
     color: black;
     border: 1px solid black;
   }
-  &.inverted {
-    background-color: white;
-    color: black;
+}
 
-    &:hover {
-      background-color: black;
-      color: white;
-      border: none;
-    }
+@mixin googleButton {
+  color: #fff;
+  background-color: orange;
+  &:hover {
+    background-color: white;
+    color: orange;
+    border: 1px solid orange;
+  }
+}
+
+@mixin invertedButton {
+  background-color: white;
+  color: black;
+  &:hover {
+    background-color: black;
+    color: white;
+    border: none;
+  }
+}
+
+.custom-button {
+  @include customButton;
+  &.google {
+    @include googleButton;
+  }
+  &.inverted {
+    @include invertedButton;
   }
 }
