@@ -30,12 +30,12 @@ const Checkout = ({ cartItems, totalAmount }) => {
           <img src={Logo} alt="empty-cart" />
         </div>
       )}
-      {cartItems.length && (
+      {cartItems.length ? (
         <Fragment>
           <div className="total">TOTAL : ${totalAmount}</div>
           <StripeButton className="btn" total={totalAmount} />
         </Fragment>
-      )}
+      ) : null}
     </div>
   );
 };

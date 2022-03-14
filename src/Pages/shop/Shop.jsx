@@ -1,54 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Outlet, Route, Routes } from "react-router-dom";
-import withSpinner from "../../components/withSpinner/withSpinner.hoc";
-import { getDataFromFirestore } from "../../firebase/get-data.firestore";
-import { setShopData } from "../../redux/shop/shop.action";
-import Category from "./category/category.comp";
-import CollectionOverview from "./collection-overview/collection-overview.comp";
-
-const CollectionOverviewSpinner = withSpinner(CollectionOverview);
-const CategorySpinner = withSpinner(Category);
+import { Route, Routes } from "react-router-dom";
+import { fetchShopDataAsync } from "../../redux/shop/shop.action";
+import CategoryContainer from "./category/category.container";
+import CollectionOverviewContainer from "./collection-overview/collection-overview.container";
 
 class Shop extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-
-    this.state = {
-      isLoading: true,
-    };
-  }
   componentDidMount() {
-    const { setShopData } = this.props;
-    getDataFromFirestore("shop", "mt8a9SB0Xv8fIyqk7eSE").then((data) => {
-      console.log(data);
-      setShopData(data);
-      this.setState({ isLoading: false });
-    });
+    const { fetchShopDataAsync } = this.props;
+    fetchShopDataAsync();
   }
+  // instead of calling the dispatch function with data object when we call it with a function
+  // then middlewares(redux-thunk) gets this function and executes this function and
+  // this function gets access to dispatch as an argument inside then
+  // this function executes the dispatch action function with the data object received inside this async function
 
   render() {
-    const { isLoading } = this.state;
     return (
       <Routes>
-        <Route path="/" element={<Outlet />}>
-          <Route
-            index
-            element={<CollectionOverviewSpinner isLoading={isLoading} />}
-          />
-          <Route
-            path=":categoryId"
-            element={<CategorySpinner isLoading={isLoading} />}
-          />
-        </Route>
+        <Route index element={<CollectionOverviewContainer />} />
+        <Route path=":categoryId" element={<CategoryContainer />} />
       </Routes>
     );
   }
 }
 
-const mapDispatchToProps = (dispatchEvent) => ({
-  setShopData: (data) => dispatchEvent(setShopData(data)),
+const mapDispatchToProps = (dispatch) => ({
+  fetchShopDataAsync: () => dispatch(fetchShopDataAsync()),
 });
 
 export default connect(null, mapDispatchToProps)(Shop);

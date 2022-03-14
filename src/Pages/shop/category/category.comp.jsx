@@ -7,7 +7,6 @@ import CollectionPreview from "../collection-preview/collection-preview.comp";
 
 const Category = ({ collections }) => {
   const { categoryId } = useParams();
-  console.log("params", categoryId);
   const category = collections[categoryId];
 
   return <CollectionPreview classProp="category" {...category} />;
