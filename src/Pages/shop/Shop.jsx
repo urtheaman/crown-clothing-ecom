@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Outlet, Route, Routes } from "react-router-dom";
-import Header from "../../components/Header/Header";
 import withSpinner from "../../components/withSpinner/withSpinner.hoc";
 import { getDataFromFirestore } from "../../firebase/get-data.firestore";
 import { setShopData } from "../../redux/shop/shop.action";

@@ -25,7 +25,8 @@ const App = ({ setUser }) => {
           <Route index element={<Homepage />} />
           <Route path="auth" element={<Auth />} />
           <Route path="checkout" element={<Checkout />} />
-          <Route  path="shop/*" element={<Shop />} />
+          <Route path="shop/*" element={<Shop />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>
