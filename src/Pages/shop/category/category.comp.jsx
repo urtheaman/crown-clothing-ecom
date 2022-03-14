@@ -10,7 +10,7 @@ const Category = ({ collections }) => {
   console.log("params", categoryId);
   const category = collections[categoryId];
 
-  return <CollectionPreview {...category} />;
+  return <CollectionPreview classProp="category" {...category} />;
 };
 
 const mapStateToProps = createStructuredSelector({

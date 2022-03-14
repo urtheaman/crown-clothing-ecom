@@ -1,25 +1,55 @@
 import React from "react";
-import "./Shop.scss";
 import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
-import CollectionPreview from "./collection-preview/collection-preview.comp";
-import { selectShopItems } from "../../redux/shop/shop-selector";
+import { Outlet, Route, Routes } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import withSpinner from "../../components/withSpinner/withSpinner.hoc";
+import { getDataFromFirestore } from "../../firebase/get-data.firestore";
+import { setShopData } from "../../redux/shop/shop.action";
+import Category from "./category/category.comp";
+import CollectionOverview from "./collection-overview/collection-overview.comp";
 
-const Shop = ({ collections }) => {
-  return (
-    <div className="shop">
-      <h2>Collections</h2>
-      {Object.values(collections).map(({ id, ...otherProperties }) => {
-        return (
-          <CollectionPreview key={id} preview={true} {...otherProperties} />
-        );
-      })}
-    </div>
-  );
-};
+const CollectionOverviewSpinner = withSpinner(CollectionOverview);
+const CategorySpinner = withSpinner(Category);
 
-const mapStateToProps = createStructuredSelector({
-  collections: selectShopItems,
+class Shop extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props = props;
+
+    this.state = {
+      isLoading: true,
+    };
+  }
+  componentDidMount() {
+    const { setShopData } = this.props;
+    getDataFromFirestore("shop", "mt8a9SB0Xv8fIyqk7eSE").then((data) => {
+      console.log(data);
+      setShopData(data);
+      this.setState({ isLoading: false });
+    });
+  }
+
+  render() {
+    const { isLoading } = this.state;
+    return (
+      <Routes>
+        <Route path="/" element={<Outlet />}>
+          <Route
+            index
+            element={<CollectionOverviewSpinner isLoading={isLoading} />}
+          />
+          <Route
+            path=":categoryId"
+            element={<CategorySpinner isLoading={isLoading} />}
+          />
+        </Route>
+      </Routes>
+    );
+  }
+}
+
+const mapDispatchToProps = (dispatchEvent) => ({
+  setShopData: (data) => dispatchEvent(setShopData(data)),
 });
 
-export default connect(mapStateToProps)(Shop);
+export default connect(null, mapDispatchToProps)(Shop);

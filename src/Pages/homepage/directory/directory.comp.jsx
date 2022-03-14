@@ -4,6 +4,7 @@ import { createStructuredSelector } from "reselect";
 import MenuItem from "../menu-item/menu-item.comp";
 import "./directory.styles.scss";
 
+
 const Directory = ({ directorySections }) => {
   return (
     <div className="directory-menu">

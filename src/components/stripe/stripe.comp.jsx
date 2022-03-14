@@ -6,14 +6,17 @@ import CustomPrompt from "../custom-elements/custom-prompt/custom-prompt.comp";
 import { clearCart } from "../../redux/cart/cart.action";
 
 const StripeButton = ({ total, dispatch, ...props }) => {
-  const [hide, setHide] = useState(true);
+  const [prompt, setPrompt] = useState(null);
   const onToken = (token) => {
     console.log(token);
     dispatch(clearCart());
-    setHide(false);
+    setPrompt(() => <CustomPrompt setPrompt={setPrompt}>
+          Payment Successful! Your Product will be delivered soon.
+        </CustomPrompt>)
   };
   return (
     <Fragment>
+      {prompt}
       <StripeCheckout
         {...props}
         stripeKey="pk_test_51KcT3XSAQjlF6UAqKfwSJykUdfTSRipr0VTAu1yiejmvi3TkdBEGiX3Qw4aQXKfeTBvGhuDGcD0vSJSYCzYtkfio00aSqKqp1H"
@@ -33,11 +36,6 @@ const StripeButton = ({ total, dispatch, ...props }) => {
         bitcoin
         token={onToken}
       />
-      {!hide ? (
-        <CustomPrompt setHide={setHide}>
-          Payment Successful! Your Product will be delivered soon.
-        </CustomPrompt>
-      ) : null}
     </Fragment>
   );
 };

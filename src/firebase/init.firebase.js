@@ -1,16 +1,9 @@
 import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import firebaseConfig from "./firebase.config";
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
-// import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 
-const firebaseApp = initializeApp(firebaseConfig);
-
+export const firebaseApp = initializeApp(firebaseConfig);
+export const auth = getAuth();
 export const provider = new GoogleAuthProvider();
-export const auth = getAuth(firebaseApp);
-
-// const fireStoreDb = getFirestore();
-// const data = async () => {
-//   const res = await getDocs(collection(fireStoreDb, "users"));
-//   console.log(res);
-//   return res;
-// }
+export const fireStoreDb = getFirestore();

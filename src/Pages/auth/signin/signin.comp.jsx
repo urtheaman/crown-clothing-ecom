@@ -3,17 +3,13 @@ import React from "react";
 import "./signin.styles.scss";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../../firebase/init.firebase";
-import { connect } from "react-redux";
-import setUser from "../../../redux/user/user-action";
 import CustomButton from "../../../components/custom-elements/custom-button/custom-button.comp";
 import FormInput from "../../../components/custom-elements/form-input/form-input.comp";
-
+import { signInUsingPassword } from "../../../firebase/auth.firebase";
 
 class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
-    const { setCurrentUser } = props;
-    this.setCurrentUser = setCurrentUser;
+  constructor() {
+    super();
 
     this.state = {
       email: "",
@@ -26,7 +22,9 @@ class SignIn extends React.Component {
     this.setState({ [name]: value });
   };
 
-  signInHandler = () => {
+  signInHandler = (e) => {
+    e.preventDefault()
+    signInUsingPassword(this.state.email, this.state.password);
     this.setState({
       email: "",
       password: "",
@@ -41,7 +39,7 @@ class SignIn extends React.Component {
           token: credential.accessToken,
           user: res.user,
         };
-        this.setCurrentUser(user);
+        console.log(user);
       })
       .catch((err) =>
         console.error(
@@ -55,7 +53,7 @@ class SignIn extends React.Component {
       <div className="sign-in">
         <h2>Already have an account?</h2>
         <span className="info">Sign in with email and password</span>
-        <form method="POST">
+        <form>
           <FormInput
             type="email"
             label="email"
@@ -89,8 +87,4 @@ class SignIn extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatchEvent) => ({
-  setCurrentUser: (user) => dispatchEvent(setUser(user)),
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

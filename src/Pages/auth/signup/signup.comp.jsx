@@ -1,6 +1,8 @@
 import React from "react";
 import CustomButton from "../../../components/custom-elements/custom-button/custom-button.comp";
+import CustomPrompt from "../../../components/custom-elements/custom-prompt/custom-prompt.comp";
 import FormInput from "../../../components/custom-elements/form-input/form-input.comp";
+import { singnUpUsingPassword } from "../../../firebase/auth.firebase";
 import "./signup.styles.scss";
 
 class SignUp extends React.Component {
@@ -11,6 +13,7 @@ class SignUp extends React.Component {
       email: "",
       password: "",
       conformPassword: "",
+      prompt: null,
     };
   }
 
@@ -21,10 +24,41 @@ class SignUp extends React.Component {
 
   signUpHandler = (e) => {
     e.preventDefault();
-    if (this.state.password !== this.state.conformPassword)
-      alert("Passwords don't match");
-    else {
-      console.log(this.state);
+    if (Object.values(this.state).includes("")) {
+      this.setState({
+        prompt: (
+          <CustomPrompt
+            type="error"
+            setPrompt={(val) => this.setState({ prompt: val })}
+          >
+            Fill the complete form
+          </CustomPrompt>
+        ),
+      });
+    } else if (this.state.password !== this.state.conformPassword) {
+      this.setState({
+        prompt: (
+          <CustomPrompt
+            type="error"
+            setPrompt={(val) => this.setState({ prompt: val })}
+          >
+            Passwords don't match
+          </CustomPrompt>
+        ),
+      });
+    } else if (this.state.password.length < 6) {
+      this.setState({
+        prompt: (
+          <CustomPrompt
+            type="error"
+            setPrompt={(val) => this.setState({ prompt: val })}
+          >
+            Weak Password!
+          </CustomPrompt>
+        ),
+      });
+    } else {
+      singnUpUsingPassword(this.state.name, this.state.email, this.state.password);
       this.setState({
         name: "",
         email: "",
@@ -37,9 +71,10 @@ class SignUp extends React.Component {
   render() {
     return (
       <div className="sign-up">
+        {this.state.prompt}
         <h2>I don't have an account.</h2>
         <span className="info">Create Account with email and password</span>
-        <form method="POST">
+        <form>
           <FormInput
             type="text"
             name="name"

@@ -8,14 +8,21 @@ import CartIcon from "../cart/cart-icon/cart-icon.comp";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { selectToggleHidden } from "../../redux/cart/cart.selector";
+import { signOutUser } from "../../firebase/auth.firebase";
+import setUser from "../../redux/user/user-action";
 
-const Header = ({ currentUser, hidden }) => {
-  const navigate = useNavigate()
+const Header = ({ currentUser, hidden, dispatch }) => {
+  const navigate = useNavigate();
+
+  const signOutHandler = () => {
+    signOutUser();
+    dispatch(setUser(null))
+  }
   return (
     <Fragment>
       <header className="header">
         <div className="logo-container">
-            <img src={Logo} alt="logo" onClick={() => navigate('/')} />
+          <img src={Logo} alt="logo" onClick={() => navigate("/")} />
         </div>
         <ul className="options">
           <Link to="/shop" className="option">
@@ -25,7 +32,7 @@ const Header = ({ currentUser, hidden }) => {
             Contact
           </Link>
           {currentUser ? (
-            <div className="option" onClick={() => console.log("signed out")}>
+            <div className="option" onClick={signOutHandler}>
               Sign out
             </div>
           ) : (
