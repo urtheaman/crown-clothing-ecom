@@ -14,6 +14,6 @@ export const selectIsFetching = createSelector(selectShop, shop => {
     return shop.isFetching
 })
 
-export const selectIsCollectionLoaded = createSelector(selectShopItems, shopItems => {
-    return !!shopItems
-})
+// export const selectIsCollectionLoaded = createSelector(selectShopItems, shopItems => {
+//     return !!shopItems
+// })

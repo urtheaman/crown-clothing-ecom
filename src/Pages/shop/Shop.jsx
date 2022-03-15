@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { fetchShopDataAsync } from "../../redux/shop/shop.action";
+import { fetchShopDataStart } from "../../redux/shop/shop.action";
 import CategoryContainer from "./category/category.container";
 import CollectionOverviewContainer from "./collection-overview/collection-overview.container";
 
 class Shop extends React.Component {
   componentDidMount() {
-    const { fetchShopDataAsync } = this.props;
-    fetchShopDataAsync();
+    const { fetchShopDataStart } = this.props;
+    fetchShopDataStart();
   }
   // instead of calling the dispatch function with data object when we call it with a function
   // then middlewares(redux-thunk) gets this function and executes this function and
@@ -26,7 +26,7 @@ class Shop extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchShopDataAsync: () => dispatch(fetchShopDataAsync()),
+  fetchShopDataStart: () => dispatch(fetchShopDataStart()),
 });
 
 export default connect(null, mapDispatchToProps)(Shop);

@@ -1,4 +1,6 @@
 const directoryActionTypes = {
-  SET_DIRECTORY_DATA: "SET_DIRECTORY_DATA",
+  FETCH_DIR_DATA_START: "FETCH_DIR_DATA_START",
+  FETCH_DIR_DATA_SUCCESS: "FETCH_DIR_DATA_SUCCESS",
+  FETCH_DIR_DATA_FAILURE: "FETCH_DIR_DATA_FAILURE",
 };
-export default directoryActionTypes
+export default directoryActionTypes;

@@ -1,41 +1,28 @@
-import Directory from "./directory/directory.comp";
 import "./Homepage.scss";
 import React from "react";
 import { connect } from "react-redux";
-import withSpinner from "../../components/withSpinner/withSpinner.hoc";
-import { getDataFromFirestore } from "../../firebase/get-data.firestore";
-import { setDirectoryData } from "../../redux/directory/directory.action";
+import {
+  onFetchDirectoryStart,
+} from "../../redux/directory/directory.action";
+import DirectoryContainer from "./directory/directory.container";
 
-const DirectoryWithSpinner = withSpinner(Directory);
 class Homepage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.props = props;
-
-    this.state = {
-      isLoading: true,
-    };
-  }
-
   componentDidMount() {
-    const { setDirectoryData } = this.props;
-    getDataFromFirestore("directory", "Vc3BRUozBcNdUnhl5XL9").then((data) => {
-      setDirectoryData(data.sections);
-      this.setState({ isLoading: false });
-    });
+    const { fetchDirStart } = this.props;
+    fetchDirStart();
   }
 
   render() {
     return (
       <div className="homepage">
-        <DirectoryWithSpinner isLoading={this.state.isLoading} />
+        <DirectoryContainer />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatchEvent) => ({
-  setDirectoryData: (data) => dispatchEvent(setDirectoryData(data)),
+  fetchDirStart: () => dispatchEvent(onFetchDirectoryStart()),
 });
 
 export default connect(null, mapDispatchToProps)(Homepage);
