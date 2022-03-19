@@ -4,15 +4,32 @@ import StripeCheckout from "react-stripe-checkout";
 import Logo from "../../assets/images/crown.svg";
 import CustomPrompt from "../custom-elements/custom-prompt/custom-prompt.comp";
 import { clearCart } from "../../redux/cart/cart.action";
+import axios from "axios";
 
 const StripeButton = ({ total, dispatch, ...props }) => {
+  // if (process.env.NODE_ENV !== "production") {
+  //   require("dotenv").config({
+  //     path: "../../../.env",
+  //   });
+  // }
   const [prompt, setPrompt] = useState(null);
+  const price = total * 100; // in cents
+
   const onToken = (token) => {
-    console.log(token);
+    axios({
+      url: "payment",
+      method: "POST",
+      data: {
+        token: token,
+        amount: price,
+      },
+    });
     dispatch(clearCart());
-    setPrompt(() => <CustomPrompt setPrompt={setPrompt}>
-          Payment Successful! Your Product will be delivered soon.
-        </CustomPrompt>)
+    setPrompt(() => (
+      <CustomPrompt setPrompt={setPrompt}>
+        Payment Successful! Your Product will be delivered soon.
+      </CustomPrompt>
+    ));
   };
   return (
     <Fragment>
@@ -25,7 +42,7 @@ const StripeButton = ({ total, dispatch, ...props }) => {
         image={Logo}
         ComponentClass="div"
         panelLabel="Order Now"
-        amount={total * 100}
+        amount={price}
         currency="USD"
         locale={Navigator.locale}
         email=""

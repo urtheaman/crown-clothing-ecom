@@ -28,7 +28,6 @@ class SignUp extends React.Component {
       this.setState({
         prompt: (
           <CustomPrompt
-            type="error"
             setPrompt={(val) => this.setState({ prompt: val })}
           >
             Fill the complete form
@@ -39,7 +38,6 @@ class SignUp extends React.Component {
       this.setState({
         prompt: (
           <CustomPrompt
-            type="error"
             setPrompt={(val) => this.setState({ prompt: val })}
           >
             Passwords don't match
@@ -50,7 +48,6 @@ class SignUp extends React.Component {
       this.setState({
         prompt: (
           <CustomPrompt
-            type="error"
             setPrompt={(val) => this.setState({ prompt: val })}
           >
             Weak Password!
