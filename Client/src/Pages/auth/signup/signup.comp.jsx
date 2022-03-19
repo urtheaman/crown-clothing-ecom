@@ -1,13 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 import CustomButton from "../../../components/custom-elements/custom-button/custom-button.comp";
 import CustomPrompt from "../../../components/custom-elements/custom-prompt/custom-prompt.comp";
 import FormInput from "../../../components/custom-elements/form-input/form-input.comp";
-import { singnUpUsingPassword } from "../../../firebase/auth.firebase";
+import { signupStart } from "../../../redux/user/user-action";
 import "./signup.styles.scss";
 
 class SignUp extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.props = props;
     this.state = {
       name: "",
       email: "",
@@ -27,9 +29,7 @@ class SignUp extends React.Component {
     if (Object.values(this.state).includes("")) {
       this.setState({
         prompt: (
-          <CustomPrompt
-            setPrompt={(val) => this.setState({ prompt: val })}
-          >
+          <CustomPrompt type="error" setPrompt={(val) => this.setState({ prompt: val })}>
             Fill the complete form
           </CustomPrompt>
         ),
@@ -37,9 +37,7 @@ class SignUp extends React.Component {
     } else if (this.state.password !== this.state.conformPassword) {
       this.setState({
         prompt: (
-          <CustomPrompt
-            setPrompt={(val) => this.setState({ prompt: val })}
-          >
+          <CustomPrompt type="error" setPrompt={(val) => this.setState({ prompt: val })}>
             Passwords don't match
           </CustomPrompt>
         ),
@@ -47,15 +45,18 @@ class SignUp extends React.Component {
     } else if (this.state.password.length < 6) {
       this.setState({
         prompt: (
-          <CustomPrompt
-            setPrompt={(val) => this.setState({ prompt: val })}
-          >
+          <CustomPrompt type="error" setPrompt={(val) => this.setState({ prompt: val })}>
             Weak Password!
           </CustomPrompt>
         ),
       });
     } else {
-      singnUpUsingPassword(this.state.name, this.state.email, this.state.password);
+      const { signupStart } = this.props;
+      signupStart({
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password,
+      });
       this.setState({
         name: "",
         email: "",
@@ -108,4 +109,9 @@ class SignUp extends React.Component {
     );
   }
 }
-export default SignUp;
+
+const mapDispatchToProps = (dispatchEvent) => ({
+  signupStart: (userObject) => dispatchEvent(signupStart(userObject)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);

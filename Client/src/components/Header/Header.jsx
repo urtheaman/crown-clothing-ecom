@@ -8,16 +8,14 @@ import CartIcon from "../cart/cart-icon/cart-icon.comp";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { selectToggleHidden } from "../../redux/cart/cart.selector";
-import { signOutUser } from "../../firebase/auth.firebase";
-import setUser from "../../redux/user/user-action";
+import { signoutStart } from "../../redux/user/user-action";
 
 const Header = ({ currentUser, hidden, dispatch }) => {
   const navigate = useNavigate();
 
   const signOutHandler = () => {
-    signOutUser();
-    dispatch(setUser(null))
-  }
+    dispatch(signoutStart());
+  };
   return (
     <Fragment>
       <header className="header">

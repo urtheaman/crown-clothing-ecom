@@ -4,19 +4,16 @@ import { Route, Routes } from "react-router-dom";
 import Shop from "./Pages/shop/Shop";
 import Header from "./components/Header/Header";
 import Auth from "./Pages/auth/Auth";
-import React from "react";
+import React, { useEffect } from "react";
 import Checkout from "./Pages/checkout/checkout.comp";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase/init.firebase";
-import setUser from "./redux/user/user-action";
 import { connect } from "react-redux";
 import NotFound from "./Pages/404/NotFound";
+import { checkUserSession } from "./redux/user/user-action";
 
-const App = ({ setUser }) => {
-  onAuthStateChanged(auth, (user) => {
-    setUser(user);
-    console.log("Log from App.js");
-  });
+const App = ({ checkUserSession }) => {
+  useEffect(() => {
+    checkUserSession();
+  }, [checkUserSession]);
 
   return (
     <div className="app">
@@ -34,7 +31,7 @@ const App = ({ setUser }) => {
 };
 
 const mapDispatchToProps = (dispatchEvent) => ({
-  setUser: (user) => dispatchEvent(setUser(user)),
+  checkUserSession: () => dispatchEvent(checkUserSession()),
 });
 
 export default connect(null, mapDispatchToProps)(App);

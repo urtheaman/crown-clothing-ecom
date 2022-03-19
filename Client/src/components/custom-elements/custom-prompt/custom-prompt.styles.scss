@@ -26,13 +26,7 @@
     -webkit-box-shadow: 10px 10px 10px -4px rgba(0, 0, 0, 0.31);
     -moz-box-shadow: 10px 10px 10px -4px rgba(0, 0, 0, 0.31);
     &.error {
-      button {
-        background-color: red;
-        border: red;
-        &:hover {
-          color: red;
-        }
-      }
+      color: red;
     }
     .content {
       text-align: center;
@@ -44,13 +38,13 @@
       font-weight: bold;
       border: none;
       font-size: 1.7rem;
-      background-color: black;
-      color: white;
+      color: black;
+      background-color: white;
       padding: 5px 20px;
       border: 0.2px solid black;
       &:hover {
-        background-color: #fff;
-        color: black;
+        color: #fff;
+        background-color: black;
         transition: all 0.2s ease;
       }
       cursor: pointer;
